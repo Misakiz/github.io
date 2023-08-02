@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img0.baidu.com/it/u=1522170076,788638665&fm=253&fmt=auto&app=138&f=GIF?w=1000&h=400">
 <meta property="article:published_time" content="2023-07-28T08:35:02.000Z">
-<meta property="article:modified_time" content="2023-08-01T12:18:33.956Z">
+<meta property="article:modified_time" content="2023-08-02T08:16:30.079Z">
 <meta property="article:author" content="ZQA">
 <meta property="article:tag" content="Grafana">
 <meta property="article:tag" content="SRE">
@@ -61,7 +61,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-08-01 20:18:33'
+  postUpdate: '2023-08-02 16:16:30'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -166,7 +166,7 @@
     }
     detectApple()
     })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ZQA" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/pictures/1.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img0.baidu.com/it/u=1522170076,788638665&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=GIF?w=1000&amp;h=400')"><nav id="nav"><span id="blog-info"><a href="/" title="ZQA"><span class="site-name">ZQA</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《GoogleSRE-alerting-on-slos》- 分析与实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-07-28T08:35:02.000Z" title="Created 2023-07-28 16:35:02">2023-07-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-01T12:18:33.956Z" title="Updated 2023-08-01 20:18:33">2023-08-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《GoogleSRE-alerting-on-slos》- 分析与实践"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="note blue icon-padding modern"><i class="note-icon fas fa-bullhorn"></i><p>对《GoogleSRE-alerting-on-slos》的理解分析，相当于是翻译一遍加上自己的理解吧，里面有些概念真的太抽象了</p>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/pictures/1.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img0.baidu.com/it/u=1522170076,788638665&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=GIF?w=1000&amp;h=400')"><nav id="nav"><span id="blog-info"><a href="/" title="ZQA"><span class="site-name">ZQA</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《GoogleSRE-alerting-on-slos》- 分析与实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-07-28T08:35:02.000Z" title="Created 2023-07-28 16:35:02">2023-07-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-02T08:16:30.079Z" title="Updated 2023-08-02 16:16:30">2023-08-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《GoogleSRE-alerting-on-slos》- 分析与实践"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="note blue icon-padding modern"><i class="note-icon fas fa-bullhorn"></i><p>对《GoogleSRE-alerting-on-slos》的理解分析，相当于是翻译一遍加上自己的理解吧，里面有些概念真的太抽象了</p>
 </div>
 <div class="note red icon-padding flat"><i class="note-icon fas fa-fan"></i><p>暂时不知道咋hexo咋配置评论功能，如需要和我沟通的话麻烦通过b站私信我，b站id：<strong>披着双马尾的大叔</strong></p>
 </div>
@@ -174,7 +174,7 @@
 <p>先介绍一些名词</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93107394">一文看懂机器学习指标：准确率、精准率、召回率、F1、ROC曲线、AUC曲线</a></p>
 <p><em><strong>Precision（精确率）</strong></em></p>
-<p>检测到成功的重大事件的比例，比如每个告警都是一次重大的事件，那么精度就是100%。</p>
+<p>检测到成功的重大事件的比例，比如每个告警都是一次重大的事件，那么精确率就是100%。</p>
 <p>要注意的是低流量的情况下，举一个<strong>例子</strong>请求成功率的日slo目标为99.99%，如果你一天只有1000个请求，则一天内只要有一个错误请求，就会导致这一天的请求成功率不达标1/1000&gt;（1-slo）,告警的敏感度很高。</p>
 <p><em><strong>Recall（召回率）</strong></em></p>
 <p>检测到重大事件的比例。如果每个重要事件都会产生报警，那么召回率就是100%（假告警率高（噪音大）），</p>
@@ -191,7 +191,7 @@
 <p>请求错误率=错误请求数量（4xx+5xx）/总请求</p>
 <p>30天SLO设置为99.99%</p>
 <h2 id="Target-Error-Rate-≥-SLO-Threshold">Target Error Rate ≥ SLO Threshold</h2>
-<p>我们选择一个时间窗口，比如设置为10分钟，如果ErrorRate[10min]&gt;=99.99%就触发告警。</p>
+<p>我们选择一个时间窗口，比如设置为10分钟，如果ErrorRate[10min]&gt;=（1-99.99%）就触发告警。</p>
 <p>则告警规则为</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">record: job:slo_errors_per_request:ratio_rate10m</span><br><span class="line">expr:</span><br><span class="line">  sum(rate(slo_errors[<span class="number">10</span>m])) by (job)</span><br><span class="line">    /</span><br><span class="line">  sum(rate(slo_requests[<span class="number">10</span>m])) by (job)</span><br><span class="line"></span><br><span class="line">If you don’t export slo_errors and slo_requests from your job, you can create the time series by renaming a metric:</span><br><span class="line"></span><br><span class="line">record: slo_errors</span><br><span class="line">expr: http_errors</span><br></pre></td></tr></table></figure>
 <p><img src="/googleSre/1.png" alt="image-20230702200907879"></p>
@@ -206,7 +206,7 @@
 <tbody>
 <tr>
 <td>检测时间良好:当10分内消耗错误预算(30天的资源*0.01%)就会触发告警。</td>
-<td>精度很低：（报警次数多，过多报警没意义，噪音大且精确度（就是每次错误率刚好0.01%，对于长期30d的slo的角度来看，是“假告警”）太低</td>
+<td>精度很低：（报警次数多，过多报警没意义，噪音大且精确率（就是每次错误率刚好0.01%，对于长期30d的slo的角度来看，是“假告警”）太低</td>
 </tr>
 <tr>
 <td>召回率（就是只要是不符合slo要求，都会触发告警）高。</td>
@@ -215,8 +215,8 @@
 </tbody>
 </table>
 <h2 id="Increased-Alert-Window（slo99-9-为例）">Increased Alert Window（slo99.9%为例）</h2>
-<p>上述方案精确度太低，可以通过增加告警窗口解决<strong>精确度低</strong>的问题。</p>
-<p>举例：设置当事件消耗了30天错误预算的5％（30d * 5% = 36h）时才收到报警，以提高精确度。</p>
+<p>上述方案精确率太低，可以通过增加告警窗口解决<strong>精确率</strong>的问题。</p>
+<p>举例：设置当事件消耗了30天错误预算的5％（30d * 5% = 36h）时才收到报警，以提高精确率。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- alert: HighErrorRate</span><br><span class="line">   expr: job:slo_errors_per_request:ratio_rate36h&#123;job=&quot;myjob&quot;&#125; &gt; 0.001</span><br></pre></td></tr></table></figure>
 <p>现在触发告警的耗时变为</p>
 <p><img src="/googleSre/2.png" alt="image-20230702200907879"></p>
@@ -319,7 +319,7 @@
 </thead>
 <tbody>
 <tr>
-<td>精确度高：选择了大部分错误预算消耗时发出报警。</td>
+<td>精确率高：选择了大部分错误预算消耗时发出报警。</td>
 <td>召回率低：比如当错误消耗率一直低于36，那么就永远不会报警，假设BurnRate为35，在20.5小时（30d / 35 * 24h）后会消耗掉30天的全部错误预算。</td>
 </tr>
 <tr>
@@ -333,7 +333,7 @@
 </tbody>
 </table>
 <h2 id="Multiple-Burn-Rate-Alerts">Multiple Burn Rate Alerts</h2>
-<p>使用多个消耗率和时间窗口，并在消耗率超过指定阈值时发出警报。这个方案即保留了（Alert on Burn Rate告警方案）的优点（精确度高），也会确保你不会忽视较低（但仍然很重要）的错误率就是也会<strong>提高召回率</strong>。</p>
+<p>使用多个消耗率和时间窗口，并在消耗率超过指定阈值时发出警报。这个方案即保留了（Alert on Burn Rate告警方案）的优点（精确率高），也会确保你不会忽视较低（但仍然很重要）的错误率就是也会<strong>提高召回率</strong>。</p>
 <p>GoogleSre建议一小时内 2% 的预算消耗和六小时内 5% 的预算消耗作为寻呼的合理起始数字，三天内 10% 的预算消耗作为工单警报的良好基准。适当的数字取决于服务和基线页面加载。</p>
 <ul>
 <li>1小时内消耗月度2％的预算消耗，发出紧急报警</li>
@@ -357,7 +357,7 @@
 <td>需要管理更多的时间窗口大小和阈值。</td>
 </tr>
 <tr>
-<td>精确度高</td>
+<td>精确率高</td>
 <td>告警的恢复时间长，由于有3天消耗10%错误预算的报警，当服务完全不可用时，4.3分钟就会触发报警，但需要3天后才恢复</td>
 </tr>
 <tr>
@@ -395,7 +395,7 @@
 <td>指定的参数很多，这可能使报警规则难以管理</td>
 </tr>
 <tr>
-<td>精确度高</td>
+<td>精确率高</td>
 <td></td>
 </tr>
 </tbody>
