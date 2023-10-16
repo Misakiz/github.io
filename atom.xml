@@ -6,7 +6,7 @@
   <link href="http://misakiz.github.io/atom.xml" rel="self"/>
   
   <link href="http://misakiz.github.io/"/>
-  <updated>2023-08-07T12:00:46.677Z</updated>
+  <updated>2023-10-16T12:37:17.722Z</updated>
   <id>http://misakiz.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Grafana-动态阈值配置</title>
+    <link href="http://misakiz.github.io/2023/10/16/Grafana-%E5%8A%A8%E6%80%81%E9%98%88%E5%80%BC%E9%85%8D%E7%BD%AE/"/>
+    <id>http://misakiz.github.io/2023/10/16/Grafana-%E5%8A%A8%E6%80%81%E9%98%88%E5%80%BC%E9%85%8D%E7%BD%AE/</id>
+    <published>2023-10-16T12:25:49.000Z</published>
+    <updated>2023-10-16T12:37:17.722Z</updated>
+    
+    <content type="html"><![CDATA[<div class="note blue icon-padding modern"><i class="note-icon fas fa-bullhorn"></i><p>动态根据函数获取的值做阈值对比</p></div><div class="note red icon-padding flat"><i class="note-icon fas fa-fan"></i><p>暂时不知道咋hexo咋配置评论功能，如需要和我沟通的话麻烦通过b站私信我，b站id：<strong>披着双马尾的大叔</strong></p></div><h2 id="动态阈值方案">动态阈值方案</h2><p>需求，希望完成这样的大盘图，成功率&gt;sla为绿色，成功率&lt;sla为红色，即每个域名的成功率要和sla做对比。</p><p><img src="/grafana/5.png" alt="image-20230702200907879"></p><p>但每个域名的sla都是不同的，因此在Panel中无法通过设置静态阈值来区分颜色</p><h2 id="解决">解决</h2><p>思路是从函数角度实现该效果，参考文档<a href="https://community.grafana.com/t/highlight-high-or-critical-values/51922/4">https://community.grafana.com/t/highlight-high-or-critical-values/51922/</a></p><p><img src="/grafana/6.png" alt="image-20230702200907879"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">假设查询结果为C</span><br><span class="line">C and C&gt;sla则设置为绿色</span><br><span class="line"></span><br><span class="line">C and C&lt;sla则设置为红色</span><br><span class="line"></span><br><span class="line">通过上述两个查询结果 只有一个会为true实现该大盘效果。</span><br></pre></td></tr></table></figure><p><img src="/grafana/7.png" alt="image-20230702200907879"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;div class=&quot;note blue icon-padding modern&quot;&gt;&lt;i class=&quot;note-icon fas fa-bullhorn&quot;&gt;&lt;/i&gt;&lt;p&gt;动态根据函数获取的值做阈值对比&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;note red icon-</summary>
+      
+    
+    
+    
+    
+    <category term="Grafana" scheme="http://misakiz.github.io/tags/Grafana/"/>
+    
+  </entry>
   
   <entry>
     <title>《GoogleSRE-alerting-on-slos》- 分析与实践</title>
